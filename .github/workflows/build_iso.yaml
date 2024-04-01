@@ -1,0 +1,46 @@
+name: Build ISO of FPOS
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  
+  time_to_run:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        - { sys: mingw32, env: i686 }
+        - { sys: mingw64, env: x86_64 }
+      update: true
+
+    defaults:
+      run:
+        shell: msys2 {0}
+      
+    env:
+      MKISOFS: tools/mkisofs.exe
+
+    steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{matrix.sys}}
+          install: >-
+            mingw-w64-${{matrix.sys}}-fpc
+            mingw-w64-${{matrix.sys}}-make
+            mingw-w64-${{matrix.sys}}-nasm
+
+      # As suggested by MSYS (not tested on real machine)
+      - run: git config --global core.autocrlf input
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: make all
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: FPOS_Nightly
+          path: build/

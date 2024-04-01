@@ -1,1 +1,13 @@
+## Build tools for FPOS
 
+All binaries here are for Windows (.exe). If you want to taste the full instructions of building this OS, or you're using *NIX, install all dependencies below:
+
+* Free Pascal Compiler (of course)
+
+* Make (might come with FPC if on Windows)
+
+* CDRTools (for mkisofs) (should consider xorriso with mkisofs mode, this CDRTools seems not to have any new pre-built releases = build from source manually)
+
+* Netwide Assembler (nasm)
+
+For the best management and installations, you can consider using Cigwin or MSYS2 if on Windows.
