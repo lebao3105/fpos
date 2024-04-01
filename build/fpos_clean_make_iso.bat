@@ -16,7 +16,7 @@ rem You should have received a copy of the GNU General Public License
 rem along with fpos.  If not, see <http://www.gnu.org/licenses/>.
 
 @ECHO Clean FPOS .....
-@tools\make.exe clean
+@..\tools\make.exe clean
 @ECHO .
 @ECHO .
 @ECHO FPOS is Cleaned.
@@ -24,7 +24,7 @@ rem along with fpos.  If not, see <http://www.gnu.org/licenses/>.
 @ECHO .
 
 @ECHO Compile FPOS .....
-@tools\make.exe compile
+@..\tools\make.exe compile
 @ECHO .
 @ECHO .
 @ECHO FPOS is compiled
@@ -32,7 +32,7 @@ rem along with fpos.  If not, see <http://www.gnu.org/licenses/>.
 @ECHO .
 
 @ECHO Generate FPOS ISO .....
-@tools\make.exe
+@..\tools\make.exe
 @ECHO .
 @ECHO .
 @ECHO FPOS Boot CDROM is created "fpos.iso"

@@ -16,7 +16,7 @@ rem You should have received a copy of the GNU General Public License
 rem along with fpos.  If not, see <http://www.gnu.org/licenses/>.
 
 @ECHO Clean FPOS .....
-@tools\make.exe clean
+@..\tools\make.exe clean
 @ECHO .
 @ECHO .
 @ECHO FPOS is Cleaned.

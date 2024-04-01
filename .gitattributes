@@ -1,2 +1,3 @@
 rtl/inc/genmath.inc linguist-language=Pascal
 rtl/fpos/sysheap.inc linguist-language=Pascal
+make.rules linguist-language=Makefile

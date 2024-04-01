@@ -16,7 +16,7 @@ rem You should have received a copy of the GNU General Public License
 rem along with fpos.  If not, see <http://www.gnu.org/licenses/>.
 
 @ECHO Generate FPOS ISO .....
-@tools\make.exe iso
+@..\tools\make.exe iso
 @ECHO .
 @ECHO .
 @ECHO FPOS Boot CDROM is created "fpos.iso"

@@ -14,7 +14,6 @@ jobs:
       matrix:
         - { sys: mingw32, env: i686 }
         - { sys: mingw64, env: x86_64 }
-      update: true
 
     defaults:
       run:
@@ -27,6 +26,7 @@ jobs:
       - uses: msys2/setup-msys2@v2
         with:
           msystem: ${{matrix.sys}}
+          update: true
           install: >-
             mingw-w64-${{matrix.sys}}-fpc
             mingw-w64-${{matrix.sys}}-make
