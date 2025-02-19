@@ -20,18 +20,30 @@ unit console;
 interface
 
 type
-  TScreenColor = (
-    scBlack, scBlue, scGreen, scCyan,
-    scRed, scMagenta, scBrown, scLightGrey,
-    scDarkGrey, scLightBlue, scLightGreen, scLightCyan,
-    scLightRed, scLightMagenta, scLightBrown, scWhite
-    );
+	TScreenColor = (
+		scBlack, scBlue, scGreen, scCyan,
+		scRed, scMagenta, scBrown, scLightGrey,
+		scDarkGrey, scLightBlue, scLightGreen, scLightCyan,
+		scLightRed, scLightMagenta, scLightBrown, scWhite
+	);
 
+{ Where am I? X position }
 function WhereX: Word;
+
+{ Where am I? Y position }
 function WhereY: Word;
+
+{ Go to X,Y position }
 procedure GoToXY(const X, Y: Word);
+
+{ *Blinks* }
 procedure BlinkCursor;
+
+{ Clears the screen }
 procedure ClearScreen;
+
+{$REGION 'Write functions'}
+
 procedure WriteChar(const c: Char);
 procedure WritePChar(P: PChar);
 procedure WriteString(const S: String);
@@ -41,55 +53,53 @@ procedure WritePCharLn(P: PChar);
 procedure WriteStrLn(const S: String);
 procedure WriteIntLn(i: Integer);
 procedure WriteLongLn(l: LongWord);
+
+{$ENDREGION}
+
 procedure SetTextColor(const BackColor, ForeColor: TScreenColor);
 procedure Install;
 
 implementation
 
 uses
-  x86, keybrd, mouse;
+	x86, keybrd, mouse;
 
 var
-  // Video memory array
-  VidMem: PChar = PChar($B8000);
-  CursorPosX: Word = 0;
-  CursorPosY: Word = 0;
-  // Color attribute
-  Attrib: Word = $0F;
-  // Blank (space) character for current color
-  Blank: Word;
+	// Video memory array
+	VidMem: PChar = PChar($B8000);
+	CursorPosX: Word = 0;
+	CursorPosY: Word = 0;
+	// Color attribute
+	Attrib: Word = $0F;
+	// Blank (space) character for current color
+	Blank: Word;
 
 function WhereX: Word;
 begin
-  WhereX := CursorPosX;
+	Result := CursorPosX;
 end;
 
 function WhereY: Word;
 begin
-  WhereY := CursorPosY;
+	Result := CursorPosY;
 end;
 
 procedure GoToXY(const X, Y: Word);
 begin
-  if X < 80 then
-    CursorPosX := X;
-  if Y < 24 then
-    CursorPosY := Y;
+	CursorPosX := X;
+	CursorPosY := Y;
 end;
 
 // Moves screen down one line when cursor is on line 24 (it can't be more, though)
 procedure Scroll;
 begin
-  if CursorPosY >= 24 then begin
-    { // line index starts from 0
-      for n:=0 to 23 do
-        line[n]:=line[n+1] }
-    Move((VidMem + 2 * 80)^, VidMem^, 23 * 2 * 80);
-    // Empty last line
-    FillWord((VidMem + 23 * 2 * 80)^, 80, Blank);
-    CursorPosX := 0;
-    CursorPosY := 23;
-  end;
+	if CursorPosY >= 24 then begin
+		Move((VidMem + 2 * 80)^, VidMem^, 23 * 2 * 80);
+		// Empty last line
+		FillWord((VidMem + 23 * 2 * 80)^, 80, Blank);
+		CursorPosX := 0;
+		CursorPosY := 23;
+	end;
 end;
 
 procedure BlinkCursor;

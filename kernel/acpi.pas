@@ -19,8 +19,6 @@ unit acpi;
 
 interface
 
-var
-
 implementation
 
 
